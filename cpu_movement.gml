@@ -126,6 +126,9 @@ function cpu_movement(_bomb, _is_volleybomb, _on_top_of_volleybomb, _volleybomb)
 	
 	if (player.is_modded) with (player) {
 		cpu_moved = false;
+		cpu_target = _target;
+		cpu_target_x = _tx;
+		cpu_target_y = _ty;
 		mod_run_program(program, program_folder, "cpu_move");
 		if (cpu_moved) {
 			ds_grid_destroy(cpu_path_grid);
