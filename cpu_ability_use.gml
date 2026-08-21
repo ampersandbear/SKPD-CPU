@@ -11,9 +11,9 @@ function cpu_ability_use() {
 	
 	var _player_hp2 = (player.hp > 2);
 	
-	if (player.is_modded) with (player) {
+	if (player.is_modded) {
 		cpu_ability_used = false;
-		mod_run_program(program, program_folder, "cpu_ability_use");
+		mod_run_program(player.program, player.program_folder, "cpu_ability_use");
 		if (cpu_ability_used) return true;
 	}
 	
