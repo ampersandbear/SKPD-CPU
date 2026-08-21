@@ -188,11 +188,11 @@ function cpu_ability_move(_path, _bomb) {
 	#endregion
 	
 	
-	if (player.is_modded) with (player) {
+	if (player.is_modded) {
 		cpu_path = _path;
 		cpu_inside_exploding_bomb_range = _bomb;
 		cpu_ability_used_to_move = false;
-		mod_run_program(program, program_folder, "cpu_ability_move");
+		mod_run_program(player.program, player.program_folder, "cpu_ability_move");
 		if (cpu_ability_used_to_move) return true;
 	}
 }
