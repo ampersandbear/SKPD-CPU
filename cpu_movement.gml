@@ -84,11 +84,11 @@ function cpu_movement(_bomb, _is_volleybomb, _on_top_of_volleybomb, _volleybomb)
 		cpu_path_grid[# _tx, _ty] = 1000;
 	}
 	
-	if (player.is_modded) with (player) {
+	if (player.is_modded) {
 		cpu_target = _target;
 		cpu_target_x = _tx;
 		cpu_target_y = _ty;
-		mod_run_program(program, program_folder, "cpu_mark_path_obstacles");
+		mod_run_program(player.program, player.program_folder, "cpu_mark_path_obstacles");
 	}
 	
 	// find path
@@ -124,12 +124,12 @@ function cpu_movement(_bomb, _is_volleybomb, _on_top_of_volleybomb, _volleybomb)
 	var _px = player_gridx;
 	var _py = player_gridy;
 	
-	if (player.is_modded) with (player) {
+	if (player.is_modded) {
 		cpu_moved = false;
 		cpu_target = _target;
 		cpu_target_x = _tx;
 		cpu_target_y = _ty;
-		mod_run_program(program, program_folder, "cpu_move");
+		mod_run_program(player.program, player.program_folder, "cpu_move");
 		if (cpu_moved) {
 			ds_grid_destroy(cpu_path_grid);
 			return false;
@@ -212,6 +212,31 @@ function cpu_movement(_bomb, _is_volleybomb, _on_top_of_volleybomb, _volleybomb)
 		ds_grid_destroy(cpu_path_grid);
 		return false;
 	}
+	
+	if DEBUG_BUILD
+	{
+		if (instance_is_valid(_target)) trace("Target is: ", _target.name, " at ", _target.gridx, " , ", _target.gridy);
+		trace("Player is: ", player_gridx, " , ", player_gridy);
+		trace("Trying to move to ", _nx, " , ", _ny);
+		trace("Path is:");
+		for(var i = 0; i < path_get_number(cpu_path); i++)
+		{
+			trace( path_get_point_x(cpu_path, i), " , ", path_get_point_y(cpu_path, i));
+		}
+		trace("Values are:")
+		for (var j = 0; j < GRID_HEIGHT; j++) {
+			var _s = "";
+			for (var i = 0; i < GRID_WIDTH; i++) {
+				var _v = cpu_grid[# i, j];
+				if (is_array(_v)) _v = _v[2];
+				_s += string(_v) + " ";
+			}
+			trace(_s);
+		}
+		//show_message(".")
+	}
+	
+	
 		
 	// some characters might have an easier time moving with their abilities
 	if (cpu_ability_move(cpu_path, _bomb)) {
