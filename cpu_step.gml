@@ -13,7 +13,7 @@ function cpu_step() {
 		}
 		return;
 	}
-	if (player.is_modded) with (player) mod_run_program(program, program_folder, "cpu_pre_step");
+	if (player.is_modded) mod_run_program(player.program, player.program_folder, "cpu_pre_step");
 	
 	var _prev_step = current_step;
 	if (!cpu_ignore_default_step_code) {
@@ -319,10 +319,11 @@ function cpu_step() {
 					else if (kDown)		{ kUp    = true; kDown  = false; }
 				}
 				
-				if (player.is_modded) with (player) mod_run_program(program, program_folder, "cpu_set_keys");
+				if (player.is_modded) mod_run_program(player.program, player.program_folder, "cpu_set_keys");
 			break;
 		}
 	}
+	if (player.is_modded) mod_run_program(player.program, player.program_folder, "cpu_step");
 	// advance to the next step if we didn't before
 	if (_prev_step == current_step) current_step += 1;
 	// after a move, wait X steps (cpu_wait)
@@ -336,5 +337,4 @@ function cpu_step() {
 			current_step = 0;
 		}
 	}
-	if (player.is_modded) with (player) mod_run_program(program, program_folder, "cpu_step");
 }
