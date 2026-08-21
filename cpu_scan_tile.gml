@@ -466,11 +466,12 @@ function cpu_scan_tile(_x, _y, _value = 0, _starting_tile = false, _from_portal 
 			if (is_wall or unit_type == unit.reserved_space or unit_type == unit.big_reserved_space) _value -= 100;
 			
 			if (_player.is_modded) {
-				cpu_unit_value = undefined;
+				cpu_current_value = _value;
+				cpu_final_value = undefined;
 				cpu_added_value = 0;
 				mod_run_program(_player.program, _player.program_folder, "cpu_scan_tile");
-				if (!is_undefined(cpu_unit_value)) {
-					_value = cpu_unit_value;
+				if (!is_undefined(cpu_final_value)) {
+					_value = cpu_final_value;
 				} else {
 					_value += cpu_added_value;
 				}
