@@ -10,9 +10,9 @@ function cpu_item_use() {
 		return false;
 	}
 	
-	if (player.is_modded) with (player) { 
+	if (player.is_modded) { 
 		cpu_item_used = false;
-		mod_run_program(program, program_folder, "cpu_item_use");
+		mod_run_program(player.program, player.program_folder, "cpu_item_use");
 		if (cpu_item_used) return true;
 	}
 	
