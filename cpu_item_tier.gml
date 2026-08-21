@@ -5,11 +5,11 @@
 /// @returns {Real}
 function cpu_item_tier(_item, _diamond_dust = false, _player = -1) {
 	var _p = (_player == -1) ? player : _player;
-	if (_p.is_modded) with (_p) {
+	if (_p.is_modded) {
 		cpu_item = _item;
 		cpu_item_grade = undefined;
 		cpu_has_diamond_dust = _diamond_dust;
-		mod_run_program(program, program_folder, "cpu_item_tier");
+		mod_run_program(_p.program, _p.program_folder, "cpu_item_tier");
 		if (!is_undefined(cpu_item_grade)) return cpu_item_grade;
 	}
 	
